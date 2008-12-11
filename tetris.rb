@@ -106,6 +106,7 @@ class Shape
     @rotate += 1
     @rotate %= 4
 
+    #check if out of border
     n = @x + self.columns - Board::Columns
     @x -= (n+1) if n >= 0
   end
@@ -149,14 +150,14 @@ end
 
 class GameWindow < Gosu::Window
   InitInterval = 10
+  Pixels = 25
   
   def initialize
-#    super((Board::Columns+6)*32, Board::Rows*32, false) #640*576
-    super((Board::Columns+6)*25, Board::Rows*25, false) 
+    super((Board::Columns+6) * Pixels, Board::Rows * Pixels, false) 
     self.caption = "Tetris"
-
+    
     @image = Gosu::Image.new(self, "block.png")
-   
+
     @ticks = 0
     @interval = 5
     @drop_ticks = 0
