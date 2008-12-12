@@ -78,11 +78,11 @@ class Shape
     return false
   end
 
-  def overlap
-    @grids[@rotate].each_cell_n do |x,y|
-      return true unless @board.cells[@y+y][@x+x].zero?
-    end
-  end
+#   def overlap
+#     @grids[@rotate].each_cell_n do |x,y|
+#       return true unless @board.cells[@y+y][@x+x].zero?
+#     end
+#   end
 
   def drop
     unless adjoint(:bottom)
@@ -103,12 +103,15 @@ class Shape
   end
 
   def rotate
-    @rotate += 1
-    @rotate %= 4
-
-    #check if out of border
-    n = @x + self.columns - Board::Columns
-    @x -= (n+1) if n >= 0
+    rot = @rotate
+    rot += 1
+    rot %= 4
+    @grids[rot].each_cell_n do |x,y|
+      return if @x + x >= Board::Columns           #out of border
+      return unless @board.cells[@y+y][@x+x].zero? #conflict with board
+    end
+    
+    @rotate = rot
   end
 
   def draw
