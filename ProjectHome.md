@@ -1,0 +1,1 @@
+Gosu-tetirs is a Tetris clone written in Ruby using the gosu library. For learning game programming.
